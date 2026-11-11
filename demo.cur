@@ -1,0 +1,4 @@
+curl -X POST "http://localhost:8080/api/v1/builds" \
+  -F "file=@$HOME/Downloads/trevorcodz-portfolio.zip" \
+  -F "icon=@$HOME/Downloads/app.png" \
+  -F 'config={"appName":"Trevor Portfolio","appID":"com.trevor.portfolio","version":"1.0.0","platform":"android","frontend":{"framework":"vite","packageManager":"npm","outputDirectory":"dist"},"window":{"title":"Portfolio","width":1200,"height":800,"resizable":true}}' | jq
