@@ -1,0 +1,10 @@
+.git
+.gitignore
+.env
+.env.*
+data
+node_modules
+**/node_modules
+trevorbuild
+*.apk
+*.exe

@@ -55,6 +55,23 @@ go build -o trevorbuild .
 
 The API listens at `http://localhost:8080` by default. Keep the service on a trusted local network: uploaded projects execute package installation and build scripts on the host.
 
+To build the Android toolchain into a Docker image instead, run:
+
+```bash
+./create-environment.sh
+docker run --rm -p 8080:8080 -v trevorbuild-data:/data trevorbuild-backend:local
+```
+
+The image targets Linux/amd64 and includes Go, Node.js/npm, Wails 3, Task, OpenJDK 21, Android API 35 build tools, and NDK 26.3.11579264. Build artifacts and job workspaces are stored in the persistent `trevorbuild-data` Docker volume. Containerization here provides toolchain convenience, not per-build isolation: uploaded frontend scripts execute inside the same container as the API. Do not expose it to untrusted users.
+
+For a locally installed toolchain, initialize and check the shell environment by sourcing the setup script from the project root:
+
+```bash
+. ./setup-environment.sh
+```
+
+The script exports the documented API, data, and Android SDK settings and checks that the build tools are present. It does not install system packages.
+
 ## Submit a frontend build
 
 Upload a `.zip` containing one frontend project. A top-level wrapper directory is supported. If the archive contains more than one project, the API reports an ambiguity instead of choosing one.
